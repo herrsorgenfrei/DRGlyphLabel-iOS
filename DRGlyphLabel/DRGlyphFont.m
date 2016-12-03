@@ -81,6 +81,12 @@
             ([UIScreen mainScreen].scale == 2.0));
 }
 
++ (BOOL)isRunningOn3xRetinaDevice
+{
+  return [UIScreen mainScreen].scale == 3.0;
+}
+
+
 #pragma mark - Getters and setters
 
 - (NSString *)fontFilePath
@@ -88,7 +94,9 @@
 	NSString *filename = self.fontFilename;
 	if ([[self class] isRunningOnRetinaDevice]) {
 		filename = [filename stringByAppendingString:@"@2x"];
-	}
+  } else if ([[self class] isRunningOn3xRetinaDevice]) {
+    filename = [filename stringByAppendingString:@"@3x"];
+  }
 	return [[NSBundle mainBundle] pathForResource:filename ofType:@"fnt"];
 }
 
